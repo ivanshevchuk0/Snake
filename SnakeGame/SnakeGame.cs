@@ -14,9 +14,9 @@ namespace SnakeGame
 
         static void Initialize()
         {
-            for(int i = 0; i < width; i++)
+            for (int i = 0; i < width; i++)
             {
-                for(int j = 0; j < height; j++)
+                for (int j = 0; j < height; j++)
                 {
                     field[i, j] = ' ';
                 }
@@ -30,8 +30,28 @@ namespace SnakeGame
             do
             {
                 apple = (random.Next(0, width), random.Next(0, height));
-            }while(snake.Contains(apple));
+            } while (snake.Contains(apple));
             field[apple.x, apple.y] = '*';
+        }
+
+        static void Draw()
+        {
+            Console.Clear();
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    if (snake.Contains((i, j)))
+                    {
+                        Console.WriteLine("O");
+                    }
+                    else
+                    {
+                        Console.Write(field[i, j]);
+                    }
+                }
+                Console.WriteLine();
+            }
         }
 
         static void Main(string[] args)
