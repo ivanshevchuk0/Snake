@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace SnakeGame
 {
@@ -20,9 +22,9 @@ namespace SnakeGame
                 {
                     field[i, j] = ' ';
                 }
-                snake.Add((width / 2, height / 2));
-                GenerateApple();
             }
+            snake.Add((width / 2, height / 2));
+            GenerateApple();
         }
 
         static void GenerateApple()
@@ -43,7 +45,7 @@ namespace SnakeGame
                 {
                     if (snake.Contains((i, j)))
                     {
-                        Console.WriteLine("O");
+                        Console.Write("O");
                     }
                     else
                     {
