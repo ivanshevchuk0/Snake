@@ -54,6 +54,18 @@ namespace SnakeGame
             }
         }
 
+        static void Input()
+        {
+            if(Console.KeyAvailable)
+            {
+                var key = Console.ReadKey(true).Key;
+                if(key == ConsoleKey.UpArrow || key == ConsoleKey.DownArrow || key == ConsoleKey.LeftArrow || key == ConsoleKey.RightArrow)
+                {
+                    direction = key;
+                }
+            }
+        }
+
         static void Main(string[] args)
         {
             
