@@ -97,6 +97,20 @@ namespace SnakeGame
             }
         }
 
+        static void CheckCollision()
+        {
+            var head = snake[0];
+            if(head.x < 0 || head.y < 0 || head.x >= width || head.y >= height || snake.GetRange(1, snake.Count - 1).Contains(head))
+            {
+                Console.Clear();
+                Console.WriteLine("Game Over!");
+                System.Console.WriteLine("Press any key to exit...");
+                Console.ReadKey();
+                Environment.Exit(0);
+                
+            }
+        }
+
         static void Main(string[] args)
         {
             
