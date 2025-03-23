@@ -33,23 +33,30 @@ namespace SnakeGame
             {
                 apple = (random.Next(0, width), random.Next(0, height));
             } while (snake.Contains(apple));
-            field[apple.x, apple.y] = '*';
         }
 
         static void Draw()
         {
-            Console.Clear();
-            for (int i = 0; i < width; i++)
+            if (Console.IsOutputRedirected == false)
             {
-                for (int j = 0; j < height; j++)
+                Console.Clear();
+            }
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
                 {
-                    if (snake.Contains((i, j)))
+                    if (snake.Contains((x, y)))
                     {
                         Console.Write("O");
                     }
+                    else if ((x, y) == apple)
+                    {
+                        Console.Write("*");
+                    }
                     else
                     {
-                        Console.Write(field[i, j]);
+                        Console.Write(" ");
                     }
                 }
                 Console.WriteLine();
@@ -58,10 +65,13 @@ namespace SnakeGame
 
         static void Input()
         {
-            if(Console.KeyAvailable)
+            if (Console.KeyAvailable)
             {
                 var key = Console.ReadKey(true).Key;
-                if(key == ConsoleKey.UpArrow || key == ConsoleKey.DownArrow || key == ConsoleKey.LeftArrow || key == ConsoleKey.RightArrow)
+                if (key == ConsoleKey.UpArrow && direction != ConsoleKey.DownArrow ||
+                    key == ConsoleKey.DownArrow && direction != ConsoleKey.UpArrow ||
+                    key == ConsoleKey.LeftArrow && direction != ConsoleKey.RightArrow ||
+                    key == ConsoleKey.RightArrow && direction != ConsoleKey.LeftArrow)
                 {
                     direction = key;
                 }
@@ -73,7 +83,7 @@ namespace SnakeGame
             var head = snake[0];
             (int x, int y) newHead = head;
 
-            switch(direction)
+            switch (direction)
             {
                 case ConsoleKey.UpArrow:
                     newHead = (head.x, head.y - 1);
@@ -86,10 +96,16 @@ namespace SnakeGame
                     break;
                 case ConsoleKey.RightArrow:
                     newHead = (head.x + 1, head.y);
-                    break; 
+                    break;
             }
+
+            if (newHead.x < 0) newHead.x = width - 1;
+            if (newHead.y < 0) newHead.y = height - 1;
+            if (newHead.x >= width) newHead.x = 0;
+            if (newHead.y >= height) newHead.y = 0;
+
             snake.Insert(0, newHead);
-            if(newHead == apple)
+            if (newHead == apple)
             {
                 GenerateApple();
             }
@@ -102,21 +118,20 @@ namespace SnakeGame
         static void CheckCollision()
         {
             var head = snake[0];
-            if(head.x < 0 || head.y < 0 || head.x >= width || head.y >= height || snake.GetRange(1, snake.Count - 1).Contains(head))
+            if (snake.GetRange(1, snake.Count - 1).Contains(head))
             {
                 Console.Clear();
                 Console.WriteLine("Game Over!");
-                System.Console.WriteLine("Press any key to exit...");
+                Console.WriteLine("Press any key to exit...");
                 Console.ReadKey();
                 Environment.Exit(0);
-                
             }
         }
 
         static void Main(string[] args)
         {
             Initialize();
-            while(true)
+            while (true)
             {
                 Draw();
                 Input();

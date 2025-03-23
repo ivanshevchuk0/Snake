@@ -1,0 +1,15 @@
+C:\Users\Ivan\OneDrive\Рабочий стол\Snake\SnakeGame\bin\Debug\net9.0\SnakeGame.exe
+C:\Users\Ivan\OneDrive\Рабочий стол\Snake\SnakeGame\obj\Debug\net9.0\SnakeGame.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ivan\OneDrive\Рабочий стол\Snake\SnakeGame\obj\Debug\net9.0\SnakeGame.AssemblyInfoInputs.cache
+C:\Users\Ivan\OneDrive\Рабочий стол\Snake\SnakeGame\obj\Debug\net9.0\SnakeGame.AssemblyInfo.cs
+C:\Users\Ivan\OneDrive\Рабочий стол\Snake\SnakeGame\obj\Debug\net9.0\SnakeGame.csproj.CoreCompileInputs.cache
+C:\Users\Ivan\OneDrive\Рабочий стол\Snake\SnakeGame\obj\Debug\net9.0\SnakeGame.sourcelink.json
+C:\Users\Ivan\OneDrive\Рабочий стол\Snake\SnakeGame\obj\Debug\net9.0\SnakeGame.dll
+C:\Users\Ivan\OneDrive\Рабочий стол\Snake\SnakeGame\obj\Debug\net9.0\refint\SnakeGame.dll
+C:\Users\Ivan\OneDrive\Рабочий стол\Snake\SnakeGame\obj\Debug\net9.0\SnakeGame.pdb
+C:\Users\Ivan\OneDrive\Рабочий стол\Snake\SnakeGame\bin\Debug\net9.0\SnakeGame.deps.json
+C:\Users\Ivan\OneDrive\Рабочий стол\Snake\SnakeGame\bin\Debug\net9.0\SnakeGame.runtimeconfig.json
+C:\Users\Ivan\OneDrive\Рабочий стол\Snake\SnakeGame\bin\Debug\net9.0\SnakeGame.dll
+C:\Users\Ivan\OneDrive\Рабочий стол\Snake\SnakeGame\bin\Debug\net9.0\SnakeGame.pdb
+C:\Users\Ivan\OneDrive\Рабочий стол\Snake\SnakeGame\obj\Debug\net9.0\SnakeGame.genruntimeconfig.cache
+C:\Users\Ivan\OneDrive\Рабочий стол\Snake\SnakeGame\obj\Debug\net9.0\ref\SnakeGame.dll
