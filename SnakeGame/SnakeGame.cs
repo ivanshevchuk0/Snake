@@ -113,7 +113,15 @@ namespace SnakeGame
 
         static void Main(string[] args)
         {
-            
+            Initialize();
+            while(true)
+            {
+                Draw();
+                Input();
+                UpdateSnake();
+                CheckCollision();
+                Thread.Sleep(100);
+            }
         }
     }
 }
