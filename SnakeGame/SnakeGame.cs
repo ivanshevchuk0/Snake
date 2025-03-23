@@ -66,6 +66,37 @@ namespace SnakeGame
             }
         }
 
+        static void UpdateSnake()
+        {
+            var head = snake[0];
+            (int x, int y) newHead = head;
+
+            switch(direction)
+            {
+                case ConsoleKey.UpArrow:
+                    newHead = (head.x, head.y - 1);
+                    break;
+                case ConsoleKey.DownArrow:
+                    newHead = (head.x, head.y + 1);
+                    break;
+                case ConsoleKey.LeftArrow:
+                    newHead = (head.x - 1, head.y);
+                    break;
+                case ConsoleKey.RightArrow:
+                    newHead = (head.x + 1, head.y);
+                    break; 
+            }
+            snake.Insert(0, newHead);
+            if(newHead == apple)
+            {
+                GenerateApple();
+            }
+            else
+            {
+                snake.RemoveAt(snake.Count - 1);
+            }
+        }
+
         static void Main(string[] args)
         {
             
