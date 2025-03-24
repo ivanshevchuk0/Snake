@@ -15,7 +15,9 @@ namespace SnakeGame
         static ConsoleKey direction = ConsoleKey.RightArrow;
         static int score = 0;
         static int menuIndex = 0;
+        static int restartIndex = 0;
         static string[] menuItems = { "Start", "Exit" };
+        static string[] restartMenuItems = { "Restart", "Exit" };
 
         static void Initialize()
         {
@@ -26,6 +28,7 @@ namespace SnakeGame
                     field[i, j] = ' ';
                 }
             }
+            snake.Clear();
             snake.Add((width / 2, height / 2));
             GenerateApple();
         }
@@ -47,6 +50,13 @@ namespace SnakeGame
 
             int consoleWidth = Console.WindowWidth;
             int consoleHeight = Console.WindowHeight;
+
+            if (consoleWidth < width + 2 || consoleHeight < height + 2)
+            {
+                Console.WriteLine("Console window too small. Please resize.");
+                return;
+            }
+
             int offsetX = (consoleWidth - width - 2) / 2;
             int offsetY = (consoleHeight - height - 2) / 2;
 
@@ -158,11 +168,65 @@ namespace SnakeGame
             var head = snake[0];
             if (snake.GetRange(1, snake.Count - 1).Contains(head))
             {
-                Console.Clear();
-                Console.WriteLine("Game Over!"); Console.WriteLine($"Score: {score}");
-                Console.WriteLine("Press any key to exit...");
-                Console.ReadKey();
-                Environment.Exit(0);
+                GameOver();
+            }
+        }
+
+        static void GameOver()
+        {
+            Console.Clear();
+            Console.WriteLine("Game Over!");
+            Console.WriteLine($"Score: {score}");
+            bool needRedraw = true;
+            while (true)
+            {
+                if (needRedraw)
+                {
+                    for (int i = 0; i < restartMenuItems.Length; i++)
+                    {
+                        if (i == restartIndex)
+                        {
+                            Console.WriteLine($"> {restartMenuItems[i]}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($" {restartMenuItems[i]}");
+                        }
+                    }
+                    needRedraw = false;
+                }
+                if (Console.KeyAvailable)
+                {
+                    var key = Console.ReadKey(true).Key;
+                    switch (key)
+                    {
+                        case ConsoleKey.UpArrow:
+                            restartIndex = (restartIndex - 1 + restartMenuItems.Length) % restartMenuItems.Length;
+                            needRedraw = true;
+                            break;
+                        case ConsoleKey.DownArrow:
+                            restartIndex = (restartIndex + 1) % restartMenuItems.Length;
+                            needRedraw = true;
+                            break;
+                        case ConsoleKey.Enter:
+                            if (restartMenuItems[restartIndex] == "Restart")
+                            {
+                                StartMenu();
+                                return;
+                            }
+                            else if (restartMenuItems[restartIndex] == "Exit")
+                            {
+                                Environment.Exit(0);
+                            }
+                            break;
+                    }
+                    if (needRedraw)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Game Over!");
+                        Console.WriteLine($"Score: {score}");
+                    }
+                }
             }
         }
 
@@ -193,9 +257,11 @@ namespace SnakeGame
                 {
                     case ConsoleKey.UpArrow:
                         menuIndex = (menuIndex - 1 + menuItems.Length) % menuItems.Length;
+                        MainMenu();
                         break;
                     case ConsoleKey.DownArrow:
                         menuIndex = (menuIndex + 1) % menuItems.Length;
+                        MainMenu();
                         break;
                     case ConsoleKey.Enter:
                         if (menuItems[menuIndex] == "Start")
@@ -210,7 +276,6 @@ namespace SnakeGame
                 }
             }
         }
-
 
         static void StartMenu()
         {
