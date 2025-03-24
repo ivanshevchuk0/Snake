@@ -6,7 +6,7 @@ namespace SnakeGame
 {
     class SnakeGame
     {
-        static int width = 20;
+        static int width = 40;
         static int height = 20;
         static char[,] field = new char[width, height];
         static List<(int x, int y)> snake = new List<(int x, int y)>();
@@ -41,9 +41,25 @@ namespace SnakeGame
             {
                 Console.Clear();
             }
+            
+            int consoleWidth = Console.WindowWidth;
+            
+            int consoleHeight = Console.WindowHeight;
+            int offsetX = (consoleWidth - width) / 2;
+            int offsetY = (consoleHeight - height) / 2;
+
+            for(int i = 0; i < offsetY; i++)
+            {
+                Console.WriteLine();
+            }
 
             for (int y = 0; y < height; y++)
             {
+                for(int i = 0; i < offsetX; i++)
+                {
+                    Console.Write(" ");
+                }
+
                 for (int x = 0; x < width; x++)
                 {
                     if (snake.Contains((x, y)))
