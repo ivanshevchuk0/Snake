@@ -13,6 +13,7 @@ namespace SnakeGame
         static (int x, int y) apple;
         static Random random = new Random();
         static ConsoleKey direction = ConsoleKey.RightArrow;
+        static int score = 0;
 
         static void Initialize()
         {
@@ -91,6 +92,10 @@ namespace SnakeGame
                     Console.Write(" ");
                 }
                 Console.WriteLine(new string('#', width + 2));
+
+                //score
+                Console.SetCursorPosition(offsetX + offsetX / 2, offsetY - 2);
+                Console.WriteLine($"Score: {score}");
         }
 
         static void Input()
@@ -137,6 +142,7 @@ namespace SnakeGame
             snake.Insert(0, newHead);
             if (newHead == apple)
             {
+                score++;
                 GenerateApple();
             }
             else
@@ -151,7 +157,7 @@ namespace SnakeGame
             if (snake.GetRange(1, snake.Count - 1).Contains(head))
             {
                 Console.Clear();
-                Console.WriteLine("Game Over!");
+                Console.WriteLine("Game Over!"); Console.WriteLine($"Score: {score}");
                 Console.WriteLine("Press any key to exit...");
                 Console.ReadKey();
                 Environment.Exit(0);
