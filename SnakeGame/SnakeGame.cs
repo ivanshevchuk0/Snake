@@ -43,15 +43,20 @@ namespace SnakeGame
             }
             
             int consoleWidth = Console.WindowWidth;
-            
             int consoleHeight = Console.WindowHeight;
-            int offsetX = (consoleWidth - width) / 2;
-            int offsetY = (consoleHeight - height) / 2;
+            int offsetX = (consoleWidth - width - 2) / 2;
+            int offsetY = (consoleHeight - height - 2) / 2;
 
             for(int i = 0; i < offsetY; i++)
             {
                 Console.WriteLine();
             }
+
+            for(int i = 0; i < offsetX; i++)
+            {
+                Console.Write(" ");
+            }
+            Console.WriteLine(new string('#', width + 2));
 
             for (int y = 0; y < height; y++)
             {
@@ -59,6 +64,8 @@ namespace SnakeGame
                 {
                     Console.Write(" ");
                 }
+
+                Console.Write("#");
 
                 for (int x = 0; x < width; x++)
                 {
@@ -75,8 +82,15 @@ namespace SnakeGame
                         Console.Write(" ");
                     }
                 }
-                Console.WriteLine();
+
+                Console.WriteLine("#");
+
             }
+                for(int i = 0; i < offsetX; i++)
+                {
+                    Console.Write(" ");
+                }
+                Console.WriteLine(new string('#', width + 2));
         }
 
         static void Input()
