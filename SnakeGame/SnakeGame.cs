@@ -14,6 +14,8 @@ namespace SnakeGame
         static Random random = new Random();
         static ConsoleKey direction = ConsoleKey.RightArrow;
         static int score = 0;
+        static int menuIndex = 0;
+        static string[] menuItems = { "Start", "Exit" };
 
         static void Initialize()
         {
@@ -42,18 +44,18 @@ namespace SnakeGame
             {
                 Console.Clear();
             }
-            
+
             int consoleWidth = Console.WindowWidth;
             int consoleHeight = Console.WindowHeight;
             int offsetX = (consoleWidth - width - 2) / 2;
             int offsetY = (consoleHeight - height - 2) / 2;
 
-            for(int i = 0; i < offsetY; i++)
+            for (int i = 0; i < offsetY; i++)
             {
                 Console.WriteLine();
             }
 
-            for(int i = 0; i < offsetX; i++)
+            for (int i = 0; i < offsetX; i++)
             {
                 Console.Write(" ");
             }
@@ -61,7 +63,7 @@ namespace SnakeGame
 
             for (int y = 0; y < height; y++)
             {
-                for(int i = 0; i < offsetX; i++)
+                for (int i = 0; i < offsetX; i++)
                 {
                     Console.Write(" ");
                 }
@@ -87,15 +89,15 @@ namespace SnakeGame
                 Console.WriteLine("#");
 
             }
-                for(int i = 0; i < offsetX; i++)
-                {
-                    Console.Write(" ");
-                }
-                Console.WriteLine(new string('#', width + 2));
+            for (int i = 0; i < offsetX; i++)
+            {
+                Console.Write(" ");
+            }
+            Console.WriteLine(new string('#', width + 2));
 
-                //score
-                Console.SetCursorPosition(offsetX + offsetX / 2, offsetY - 2);
-                Console.WriteLine($"Score: {score}");
+            //score
+            Console.SetCursorPosition(offsetX + offsetX / 2, offsetY - 2);
+            Console.WriteLine($"Score: {score}");
         }
 
         static void Input()
@@ -164,7 +166,53 @@ namespace SnakeGame
             }
         }
 
-        static void Main(string[] args)
+        static void MainMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("Main Menu: ");
+            for (int i = 0; i < menuItems.Length; i++)
+            {
+                if (i == menuIndex)
+                {
+                    Console.WriteLine($"> {menuItems[i]}");
+                }
+                else
+                {
+                    Console.WriteLine($" {menuItems[i]}");
+                }
+            }
+
+        }
+
+        static void MainMenuInput()
+        {
+            if (Console.KeyAvailable)
+            {
+                var key = Console.ReadKey(true).Key;
+                switch (key)
+                {
+                    case ConsoleKey.UpArrow:
+                        menuIndex = (menuIndex - 1 + menuItems.Length) % menuItems.Length;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        menuIndex = (menuIndex + 1) % menuItems.Length;
+                        break;
+                    case ConsoleKey.Enter:
+                        if (menuItems[menuIndex] == "Start")
+                        {
+                            StartMenu();
+                        }
+                        else if (menuItems[menuIndex] == "Exit")
+                        {
+                            Environment.Exit(0);
+                        }
+                        break;
+                }
+            }
+        }
+
+
+        static void StartMenu()
         {
             Initialize();
             while (true)
@@ -173,6 +221,16 @@ namespace SnakeGame
                 Input();
                 UpdateSnake();
                 CheckCollision();
+                Thread.Sleep(100);
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            while (true)
+            {
+                MainMenu();
+                MainMenuInput();
                 Thread.Sleep(100);
             }
         }
